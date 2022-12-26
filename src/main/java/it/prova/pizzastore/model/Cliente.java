@@ -57,6 +57,17 @@ public class Cliente {
 		this.indirizzo = indirizzo;
 		this.attivo = attivo;
 	}
+	
+	
+
+	public Cliente(Long id, String nome, String cognome, String indirizzo, boolean attivo) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.cognome = cognome;
+		this.indirizzo = indirizzo;
+		this.attivo = attivo;
+	}
 
 	public Long getId() {
 		return id;

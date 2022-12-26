@@ -16,44 +16,45 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "ordine")
 public class Ordine {
-	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
+	@Column(name = "id")
 	private Long id;
-	
-	@Column(name="data")
+
+	@Column(name = "data")
 	private LocalDate data;
-	
-	@Column(name="closed")
+
+	@Column(name = "closed")
 	private boolean closed;
-	
-	@Column(name="codice")
+
+	@Column(name = "codice")
 	private String codice;
-	
-	@Column(name="costoTotale")
+
+	@Column(name = "costoTotale")
 	private Integer costoTotale;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cliente_id", nullable = false)
 	private Cliente cliente;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "utente_id", nullable = false)
 	private Utente fattorino;
-	
+
 	@ManyToMany
-	@JoinTable(name = "ordine_pizza", joinColumns = @JoinColumn(name = "ordine_id", referencedColumnName = "ID"),
-	inverseJoinColumns = @JoinColumn(name = "pizza_id", referencedColumnName = "ID"))
+	@JoinTable(name = "ordine_pizza", joinColumns = @JoinColumn(name = "ordine_id", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "pizza_id", referencedColumnName = "ID"))
 	private Set<Pizza> listaPizze = new HashSet<>(0);
 
-	
 	public Ordine() {
+	}
+
+	public Ordine(Long id) {
+		super();
+		this.id = id;
 	}
 
 	public Ordine(Long id, LocalDate data, boolean closed, String codice, Integer costoTotale, Cliente cliente,
@@ -90,11 +91,23 @@ public class Ordine {
 	}
 
 	public Ordine(String codice, LocalDate data, Integer costoTotale, boolean closed, Cliente cliente) {
-		this.codice=codice;
-		this.data=data;
-		this.costoTotale=costoTotale;
-		this.closed=closed;
-		this.cliente=cliente;
+		this.codice = codice;
+		this.data = data;
+		this.costoTotale = costoTotale;
+		this.closed = closed;
+		this.cliente = cliente;
+	}
+
+	public Ordine(Long id, LocalDate data, boolean closed, String codice, Integer costoTotale, Cliente cliente,
+			Utente fattorino) {
+		super();
+		this.id = id;
+		this.data = data;
+		this.closed = closed;
+		this.codice = codice;
+		this.costoTotale = costoTotale;
+		this.cliente = cliente;
+		this.fattorino = fattorino;
 	}
 
 	public Long getId() {
@@ -160,6 +173,5 @@ public class Ordine {
 	public void setListaPizze(Set<Pizza> listaPizze) {
 		this.listaPizze = listaPizze;
 	}
-	
-	
+
 }
