@@ -89,6 +89,14 @@ public class Ordine {
 		this.listaPizze = listaPizze;
 	}
 
+	public Ordine(String codice, LocalDate data, Integer costoTotale, boolean closed, Cliente cliente) {
+		this.codice=codice;
+		this.data=data;
+		this.costoTotale=costoTotale;
+		this.closed=closed;
+		this.cliente=cliente;
+	}
+
 	public Long getId() {
 		return id;
 	}

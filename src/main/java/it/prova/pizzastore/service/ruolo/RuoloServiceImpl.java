@@ -3,12 +3,14 @@ package it.prova.pizzastore.service.ruolo;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.prova.pizzastore.model.Ruolo;
 import it.prova.pizzastore.repository.ruolo.RuoloRepository;
 
-
+@Service
+@Transactional(readOnly = true)
 public class RuoloServiceImpl implements RuoloService{
 	
 	@Autowired

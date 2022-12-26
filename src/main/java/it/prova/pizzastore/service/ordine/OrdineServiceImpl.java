@@ -3,10 +3,14 @@ package it.prova.pizzastore.service.ordine;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import it.prova.pizzastore.model.Ordine;
 import it.prova.pizzastore.repository.ordine.OrdineRepository;
 
+@Service
+@Transactional
 public class OrdineServiceImpl implements OrdineService{
 
 	@Autowired

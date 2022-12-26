@@ -3,10 +3,14 @@ package it.prova.pizzastore.service.pizza;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import it.prova.pizzastore.model.Pizza;
 import it.prova.pizzastore.repository.pizza.PizzaRepository;
 
+@Service
+@Transactional
 public class PizzaServiceImpl implements PizzaService{
 
 	@Autowired
