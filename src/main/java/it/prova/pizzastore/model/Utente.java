@@ -52,8 +52,6 @@ public class Utente {
 	@JoinTable(name = "utente_ruolo", joinColumns = @JoinColumn(name = "utente_id", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "ruolo_id", referencedColumnName = "ID"))
 	private Set<Ruolo> ruoli = new HashSet<>(0);
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "utente")
-	private Set<Ordine> ordini = new HashSet<Ordine>(0);
 
 	public Utente() {
 	}
@@ -150,13 +148,6 @@ public class Utente {
 		this.ruoli = ruoli;
 	}
 
-	public Set<Ordine> getOrdini() {
-		return ordini;
-	}
-
-	public void setOrdini(Set<Ordine> ordini) {
-		this.ordini = ordini;
-	}
 
 	public boolean isAdmin() {
 		for (Ruolo ruoloItem : ruoli) {
