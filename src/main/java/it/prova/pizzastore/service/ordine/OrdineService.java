@@ -7,6 +7,8 @@ import it.prova.pizzastore.model.Ordine;
 public interface OrdineService {
 	
 	public List<Ordine> listAllOrdini();
+	
+	public List<Ordine> listAllElementsSingoloCliente(Long id);
 
 	public Ordine caricaSingoloOrdine(Long id);
 

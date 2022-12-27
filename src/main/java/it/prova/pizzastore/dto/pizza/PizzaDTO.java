@@ -109,4 +109,10 @@ public class PizzaDTO {
 			return PizzaDTO.buildPizzaDTOFromModel(pizzaEntity);
 		}).collect(Collectors.toSet());
 	}
+	
+	public static Set<Pizza> createPizzaModelSetFromDTOSet(Set<PizzaDTO> ListInput) {
+		return ListInput.stream().map(pizzaEntity -> {
+			return pizzaEntity.buildPizzaModel();
+		}).collect(Collectors.toSet());
+	}
 }

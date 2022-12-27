@@ -21,6 +21,11 @@ public class OrdineServiceImpl implements OrdineService{
 		return (List<Ordine>) ordineRepository.findAll();
 		
 	}
+	
+	public List<Ordine> listAllElementsSingoloCliente(Long id) {
+		return ordineRepository.findAllOrdineByCliente(id);
+	}
+
 
 	@Override
 	public Ordine caricaSingoloOrdine(Long id) {

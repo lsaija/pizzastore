@@ -98,16 +98,14 @@ public class Ordine {
 		this.cliente = cliente;
 	}
 
-	public Ordine(Long id, LocalDate data, boolean closed, String codice, Integer costoTotale, Cliente cliente,
-			Utente fattorino) {
+	public Ordine(Long id, LocalDate data, boolean closed, String codice, Integer costoTotale) {
 		super();
 		this.id = id;
 		this.data = data;
 		this.closed = closed;
 		this.codice = codice;
 		this.costoTotale = costoTotale;
-		this.cliente = cliente;
-		this.fattorino = fattorino;
+
 	}
 
 	public Long getId() {
