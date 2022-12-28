@@ -11,8 +11,8 @@ import it.prova.pizzastore.repository.ruolo.RuoloRepository;
 
 @Service
 @Transactional(readOnly = true)
-public class RuoloServiceImpl implements RuoloService{
-	
+public class RuoloServiceImpl implements RuoloService {
+
 	@Autowired
 	private RuoloRepository ruoloRepository;
 
@@ -43,11 +43,6 @@ public class RuoloServiceImpl implements RuoloService{
 
 	public Ruolo cercaPerDescrizioneECodice(String descrizione, String codice) {
 		return ruoloRepository.findByDescrizioneAndCodice(descrizione, codice);
-	}
-
-	@Override
-	public Ruolo cercePerCodice(String codiceInput) {
-		return ruoloRepository.findByCodice(codiceInput);
 	}
 
 }

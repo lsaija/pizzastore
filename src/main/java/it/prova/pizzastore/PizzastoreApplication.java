@@ -44,20 +44,20 @@ public class PizzastoreApplication implements CommandLineRunner {
 		 *    RUOLI    
 		 *           */
 		
-		if (ruoloServiceInstance.cercaPerDescrizioneECodice("Administrator", Ruolo.ADMIN_ROLE) == null) {
-			ruoloServiceInstance.inserisciNuovo(new Ruolo("Administrator", Ruolo.ADMIN_ROLE));
+		if (ruoloServiceInstance.cercaPerDescrizioneECodice("Administrator", Ruolo.ROLE_ADMIN) == null) {
+			ruoloServiceInstance.inserisciNuovo(new Ruolo("Administrator", Ruolo.ROLE_ADMIN));
 		}
 
-		if (ruoloServiceInstance.cercaPerDescrizioneECodice("Pizzaiolo", Ruolo.PIZZAIOLO_ROLE) == null) {
-			ruoloServiceInstance.inserisciNuovo(new Ruolo("Pizzaiolo", Ruolo.PIZZAIOLO_ROLE));
+		if (ruoloServiceInstance.cercaPerDescrizioneECodice("Pizzaiolo", Ruolo.ROLE_PIZZAIOLO) == null) {
+			ruoloServiceInstance.inserisciNuovo(new Ruolo("Pizzaiolo", Ruolo.ROLE_PIZZAIOLO));
 		}
 		
-		if (ruoloServiceInstance.cercaPerDescrizioneECodice("Proprietario", Ruolo.PROPRIETARIO_ROLE) == null) {
-			ruoloServiceInstance.inserisciNuovo(new Ruolo("Proprietario", Ruolo.PROPRIETARIO_ROLE));
+		if (ruoloServiceInstance.cercaPerDescrizioneECodice("Proprietario", Ruolo.ROLE_PROPRIETARIO) == null) {
+			ruoloServiceInstance.inserisciNuovo(new Ruolo("Proprietario", Ruolo.ROLE_PROPRIETARIO));
 		}
-
-		if (ruoloServiceInstance.cercaPerDescrizioneECodice("Fattorino", Ruolo.FATTORINO_ROLE) == null) {
-			ruoloServiceInstance.inserisciNuovo(new Ruolo("Fattorino", Ruolo.FATTORINO_ROLE));
+		
+		if (ruoloServiceInstance.cercaPerDescrizioneECodice("Fattorino", Ruolo.ROLE_FATTORINO) == null) {
+			ruoloServiceInstance.inserisciNuovo(new Ruolo("Fattorino", Ruolo.ROLE_FATTORINO));
 		}
 		
 		/*
@@ -66,29 +66,40 @@ public class PizzastoreApplication implements CommandLineRunner {
 		
 		if (utenteServiceInstance.findByUsername("admin") == null) {
 			Utente admin = new Utente("admin", "admin", "Mario", "Rossi", new Date());
-			admin.getRuoli().add(ruoloServiceInstance.cercaPerDescrizioneECodice("Administrator", Ruolo.ADMIN_ROLE));
+			admin.setEmail("a.admin@prova.it");
+			admin.getRuoli().add(ruoloServiceInstance.cercaPerDescrizioneECodice("Administrator", Ruolo.ROLE_ADMIN));
 			utenteServiceInstance.inserisciNuovo(admin);
+			// l'inserimento avviene come created ma io voglio attivarlo
 			utenteServiceInstance.changeUserAbilitation(admin.getId());
 		}
-		
-		if (utenteServiceInstance.findByUsername("pizzaiolo") == null) {
-			Utente pizzaiolo = new Utente("pizzaiolo", "pizzaiolo", "Rocco", "figo", new Date());
-			pizzaiolo.getRuoli().add(ruoloServiceInstance.cercaPerDescrizioneECodice("Pizzaiolo", Ruolo.PIZZAIOLO_ROLE));
+
+		if (utenteServiceInstance.findByUsername("Pizzaiolo") == null) {
+			Utente pizzaiolo = new Utente("Pizzaiolo", "Pizzaiolo", "Antonio", "Verdi", new Date());
+			pizzaiolo.setEmail("p.pizzaiolo@prova.it");
+			pizzaiolo.getRuoli()
+					.add(ruoloServiceInstance.cercaPerDescrizioneECodice("Pizzaiolo", Ruolo.ROLE_PIZZAIOLO));
 			utenteServiceInstance.inserisciNuovo(pizzaiolo);
+			// l'inserimento avviene come created ma io voglio attivarlo
 			utenteServiceInstance.changeUserAbilitation(pizzaiolo.getId());
 		}
 		
-		if (utenteServiceInstance.findByUsername("proprietario") == null) {
-			Utente proprietario = new Utente("proprietario", "proprietario", "Tiziana", "boss", new Date());
-			proprietario.getRuoli().add(ruoloServiceInstance.cercaPerDescrizioneECodice("Proprietario", Ruolo.PROPRIETARIO_ROLE));
+		if (utenteServiceInstance.findByUsername("Proprietario") == null) {
+			Utente proprietario = new Utente("Proprietario", "Proprietario", "Antonio", "Verdi", new Date());
+			proprietario.setEmail("p.proprietario@prova.it");
+			proprietario.getRuoli()
+					.add(ruoloServiceInstance.cercaPerDescrizioneECodice("Proprietario", Ruolo.ROLE_PROPRIETARIO));
 			utenteServiceInstance.inserisciNuovo(proprietario);
+			// l'inserimento avviene come created ma io voglio attivarlo
 			utenteServiceInstance.changeUserAbilitation(proprietario.getId());
 		}
 		
-		if (utenteServiceInstance.findByUsername("fattorino") == null) {
-			Utente fattorino = new Utente("fattorino", "fattorino", "Pecorino", "Provola", new Date());
-			fattorino.getRuoli().add(ruoloServiceInstance.cercaPerDescrizioneECodice("Fattorino", Ruolo.FATTORINO_ROLE));
+		if (utenteServiceInstance.findByUsername("Fattorino") == null) {
+			Utente fattorino = new Utente("Fattorino", "Fattorino", "Giacomo", "Bianco", new Date());
+			fattorino.setEmail("f.fattorino@prova.it");
+			fattorino.getRuoli()
+					.add(ruoloServiceInstance.cercaPerDescrizioneECodice("Fattorino", Ruolo.ROLE_FATTORINO));
 			utenteServiceInstance.inserisciNuovo(fattorino);
+			// l'inserimento avviene come created ma io voglio attivarlo
 			utenteServiceInstance.changeUserAbilitation(fattorino.getId());
 		}
 		
@@ -121,7 +132,7 @@ public class PizzastoreApplication implements CommandLineRunner {
 		Ordine ordine = new Ordine("A74673", LocalDate.now(), 13, false, clienteAttivo);
 		ordine.getListaPizze().add(margherita);
 		ordine.getListaPizze().add(pistacchiosa);
-		ordine.setFattorino(utenteServiceInstance.findByUsername("fattorino"));
+		ordine.setFattorino(utenteServiceInstance.findByUsername("Fattorino"));
 		ordineServiceInstance.inserisciNuovo(ordine);
 	}
 		

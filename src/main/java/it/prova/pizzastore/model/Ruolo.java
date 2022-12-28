@@ -11,34 +11,30 @@ import javax.persistence.Table;
 @Table(name = "ruolo")
 public class Ruolo {
 	
-	public static final String ADMIN_ROLE = "ADMIN_ROLE,";
-	public static final String PIZZAIOLO_ROLE = "PIZZAIOLO_ROLE";
-	public static final String PROPRIETARIO_ROLE = "PROPRIETARIO_ROLE,";
-	public static final String FATTORINO_ROLE = "FATTORINO_ROLE";
-	
-	
+	public static final String ROLE_ADMIN = "ROLE_ADMIN";
+	public static final String ROLE_PIZZAIOLO = "ROLE_PIZZAIOLO";
+	public static final String ROLE_PROPRIETARIO = "ROLE_PROPRIETARIO";
+	public static final String ROLE_FATTORINO = "ROLE_FATTORINO";
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
-	
 	@Column(name = "descrizione")
 	private String descrizione;
-	
 	@Column(name = "codice")
 	private String codice;
 
 	public Ruolo() {
 	}
 	
-	public Ruolo(String descrizione, String codice) {
-		super();
-		this.descrizione = descrizione;
-		this.codice = codice;
+	public Ruolo(Long id) {
+		this.id = id;
 	}
 
-	public Ruolo(Long id) {
-		this.id=id;
+	public Ruolo(String descrizione, String codice) {
+		this.descrizione = descrizione;
+		this.codice = codice;
 	}
 
 	public Long getId() {
@@ -64,24 +60,5 @@ public class Ruolo {
 	public void setCodice(String codice) {
 		this.codice = codice;
 	}
-
-	//---------------------
-	public static String getAdminRole() {
-		return ADMIN_ROLE;
-	}
-
-	public static String getPizzaioloRole() {
-		return PIZZAIOLO_ROLE;
-	}
-
-	public static String getProprietarioRole() {
-		return PROPRIETARIO_ROLE;
-	}
-
-	public static String getFattorinoRole() {
-		return FATTORINO_ROLE;
-	}
-	
-	
 
 }

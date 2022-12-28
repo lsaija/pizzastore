@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import it.prova.pizzastore.model.Ruolo;
 
 public class RuoloDTO {
-	
+
 	private Long id;
 	private String descrizione;
 	private String codice;
@@ -57,5 +57,5 @@ public class RuoloDTO {
 			return RuoloDTO.buildRuoloDTOFromModel(ruoloEntity);
 		}).collect(Collectors.toList());
 	}
-
+	
 }

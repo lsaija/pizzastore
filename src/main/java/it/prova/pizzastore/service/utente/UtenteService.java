@@ -4,9 +4,8 @@ import java.util.List;
 
 import it.prova.pizzastore.model.Utente;
 
-
 public interface UtenteService {
-	
+
 	public List<Utente> listAllUtenti();
 
 	public Utente caricaSingoloUtente(Long id);
@@ -28,7 +27,5 @@ public interface UtenteService {
 	public void changeUserAbilitation(Long utenteInstanceId);
 
 	public Utente findByUsername(String username);
-	
-	public void disabilityUserAbilitation(Long utenteInstanceId);
 
 }

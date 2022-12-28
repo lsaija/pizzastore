@@ -8,14 +8,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -26,25 +24,20 @@ public class Utente {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
-
 	@Column(name = "username")
 	private String username;
-
 	@Column(name = "password")
 	private String password;
-
 	@Column(name = "nome")
 	private String nome;
-
 	@Column(name = "cognome")
 	private String cognome;
-
 	@Column(name = "email")
 	private String email;
-
 	@Column(name = "dateCreated")
 	private Date dateCreated;
 
+	// se non uso questa annotation viene gestito come un intero
 	@Enumerated(EnumType.STRING)
 	private StatoUtente stato;
 
@@ -52,22 +45,7 @@ public class Utente {
 	@JoinTable(name = "utente_ruolo", joinColumns = @JoinColumn(name = "utente_id", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "ruolo_id", referencedColumnName = "ID"))
 	private Set<Ruolo> ruoli = new HashSet<>(0);
 
-
 	public Utente() {
-	}
-
-	public Utente(Long id, String username, String password, String nome, String cognome, String email,
-			Date dateCreated, StatoUtente stato) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.nome = nome;
-		this.cognome = cognome;
-		this.email = email;
-		this.dateCreated = dateCreated;
-		this.stato = stato;
-
 	}
 
 	public Utente(String username, String password) {
@@ -75,23 +53,20 @@ public class Utente {
 		this.username = username;
 		this.password = password;
 	}
-	
-	
 
-	public Utente(String username, String nome, String cognome, Date dateCreated) {
-		super();
-		this.username = username;
+	public Utente(String username, String password, String nome, String cognome, Date dateCreated) {
+		this(username, password);
 		this.nome = nome;
 		this.cognome = cognome;
 		this.dateCreated = dateCreated;
 	}
 
-	public Utente(String username, String password, String nome, String cognome, Date dateCreated) {
-        this.username=username;
-        this.password=password;
-        this.nome=nome;
-        this.cognome=cognome;
-        this.dateCreated=dateCreated;
+	public Utente(Long id, String username, String password, String nome, String cognome, String email,
+			Date dateCreated, StatoUtente stato) {
+		this(username, password, nome, cognome, dateCreated);
+		this.id = id;
+		this.email = email;
+		this.stato = stato;
 	}
 
 	public Long getId() {
@@ -118,6 +93,14 @@ public class Utente {
 		this.password = password;
 	}
 
+	public Set<Ruolo> getRuoli() {
+		return ruoli;
+	}
+
+	public void setRuoli(Set<Ruolo> ruoli) {
+		this.ruoli = ruoli;
+	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -132,14 +115,6 @@ public class Utente {
 
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public Date getDateCreated() {
@@ -158,18 +133,9 @@ public class Utente {
 		this.stato = stato;
 	}
 
-	public Set<Ruolo> getRuoli() {
-		return ruoli;
-	}
-
-	public void setRuoli(Set<Ruolo> ruoli) {
-		this.ruoli = ruoli;
-	}
-
-
 	public boolean isAdmin() {
 		for (Ruolo ruoloItem : ruoli) {
-			if (ruoloItem.getCodice().equals(Ruolo.ADMIN_ROLE))
+			if (ruoloItem.getCodice().equals(Ruolo.ROLE_ADMIN))
 				return true;
 		}
 		return false;
@@ -182,4 +148,13 @@ public class Utente {
 	public boolean isDisabilitato() {
 		return this.stato != null && this.stato.equals(StatoUtente.DISABILITATO);
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 }

@@ -2,15 +2,11 @@ package it.prova.pizzastore.dto.utente;
 
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import it.prova.pizzastore.dto.ordine.OrdineDTO;
-import it.prova.pizzastore.model.Ordine;
 import it.prova.pizzastore.model.Ruolo;
 import it.prova.pizzastore.model.StatoUtente;
 import it.prova.pizzastore.model.Utente;
@@ -35,7 +31,7 @@ public class UtenteDTO {
 	@NotBlank(message = "{cognome.notblank}")
 	private String cognome;
 
-	
+	@NotBlank(message = "{email.notblank}")
 	private String email;
 
 	private Date dateCreated;
@@ -80,14 +76,6 @@ public class UtenteDTO {
 		this.password = password;
 	}
 
-	public String getConfermaPassword() {
-		return confermaPassword;
-	}
-
-	public void setConfermaPassword(String confermaPassword) {
-		this.confermaPassword = confermaPassword;
-	}
-
 	public String getNome() {
 		return nome;
 	}
@@ -104,14 +92,6 @@ public class UtenteDTO {
 		this.cognome = cognome;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public Date getDateCreated() {
 		return dateCreated;
 	}
@@ -126,6 +106,22 @@ public class UtenteDTO {
 
 	public void setStato(StatoUtente stato) {
 		this.stato = stato;
+	}
+
+	public String getConfermaPassword() {
+		return confermaPassword;
+	}
+
+	public void setConfermaPassword(String confermaPassword) {
+		this.confermaPassword = confermaPassword;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Long[] getRuoliIds() {
@@ -145,28 +141,16 @@ public class UtenteDTO {
 		return result;
 	}
 
-	public static UtenteDTO buildUtenteDTOFromModel(Utente utenteModel,boolean includeIdRoles) {
+	// niente password...
+	public static UtenteDTO buildUtenteDTOFromModel(Utente utenteModel) {
 		UtenteDTO result = new UtenteDTO(utenteModel.getId(), utenteModel.getUsername(), utenteModel.getNome(),
 				utenteModel.getCognome(), utenteModel.getStato());
 
-		if (!utenteModel.getRuoli().isEmpty() && includeIdRoles)
+		if (!utenteModel.getRuoli().isEmpty())
 			result.ruoliIds = utenteModel.getRuoli().stream().map(r -> r.getId()).collect(Collectors.toList())
 					.toArray(new Long[] {});
 
 		return result;
-	}
-	
-	public static List<UtenteDTO> createUtenteDTOListFromModelList(List<Utente> modelListInput,
-			boolean includeIdRoles) {
-		return modelListInput.stream().map(utenteEntity -> {
-			return UtenteDTO.buildUtenteDTOFromModel(utenteEntity, includeIdRoles);
-		}).collect(Collectors.toList());
-	}
-
-	public static Set<UtenteDTO> createUtenteDTOSetFromModelSet(Set<Utente> modelListInput, boolean includeIdRuoli) {
-		return modelListInput.stream().map(utenteEntity -> {
-			return UtenteDTO.buildUtenteDTOFromModel(utenteEntity, includeIdRuoli);
-		}).collect(Collectors.toSet());
 	}
 
 }

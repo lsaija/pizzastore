@@ -130,7 +130,7 @@ public class ClienteDTO {
 		return modelListInput.stream().map(clienteEntity -> {
 			ClienteDTO result = ClienteDTO.buildClienteDTOFromModel(clienteEntity, includeOrdini);
 			if (includeOrdini)
-				result.setOrdini(OrdineDTO.createOrdineDTOSetFromModelSet(clienteEntity.getOrdini(), false,false,false));
+				result.setOrdini(OrdineDTO.createOrdineDTOSetFromModelSet(clienteEntity.getOrdini(), true,true,true));
 			return result;
 		}).collect(Collectors.toList());
 	}

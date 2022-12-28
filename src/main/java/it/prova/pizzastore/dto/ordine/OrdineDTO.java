@@ -162,7 +162,7 @@ public class OrdineDTO {
 			result.setCliente(ClienteDTO.buildClienteDTOFromModel(ordineModel.getCliente(), false));
 
 		if (includeFattorino)
-			result.setFattorino(UtenteDTO.buildUtenteDTOFromModel(ordineModel.getFattorino(), false));
+			result.setFattorino(UtenteDTO.buildUtenteDTOFromModel(ordineModel.getFattorino()));
 
 		if (includePizze)
 			result.setPizze(PizzaDTO.createPizzaDTOSetFromModelSet(ordineModel.getListaPizze()));

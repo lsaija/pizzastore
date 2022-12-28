@@ -58,7 +58,7 @@ public class UtenteController {
 	}
 	
 	
-	@GetMapping
+/*	@GetMapping
 	public List<UtenteDTO> getAll() {
 		return UtenteDTO.createUtenteDTOListFromModelList(utenteService.listAllUtenti(),false);
 	}
@@ -68,12 +68,13 @@ public class UtenteController {
 		return UtenteDTO.createUtenteDTOListFromModelList(utenteService.listAllUtenti(),true);
 	}
 	
+	
 	@PostMapping
 	public void createNew(@Valid @RequestBody UtenteDTO utenteInput) {
 		if (utenteInput.getId() != null)
 			throw new IdNotNullForInsertException("Non è ammesso fornire un id per la creazione");
 	    utenteService.inserisciNuovo(utenteInput.buildUtenteModel(true));
-	}
+	}*/
 	
 	/*
 	@PostMapping("/registra")
@@ -85,7 +86,7 @@ public class UtenteController {
 	}
 	*/
 	
-	@GetMapping("/{id}")
+	/*@GetMapping("/{id}")
 	public UtenteDTO findById(@PathVariable(value = "id", required = true) long id) {
 		Utente utente = utenteService.caricaSingoloUtenteConRuoli(id);
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -134,5 +135,5 @@ public class UtenteController {
 		if (utente == null)
 			throw new UtenteNotFoundException("Utente not found con id: " + id);
 		utenteService.disabilityUserAbilitation(id);
-	}
+	}*/
 }
