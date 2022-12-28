@@ -1,5 +1,6 @@
 package it.prova.pizzastore.web.api;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -81,5 +82,40 @@ public class OrdineController {
 		return OrdineDTO.createOrdineDTOListFromModelList(ordineService.findByExample(example.buildOrdineModel()), true,
 				true, true);
 	}
+	
+	
+	@GetMapping(value = "/costoOrdine/{id}")
+	public Integer getCostoOrdine(@PathVariable(value = "id", required = true) long id) {
+		return ordineService.calcolaPrezzoOrdineTotale(id);
+	}
+	
+	@GetMapping(value = "/ordiniNotClosed")
+	public List<OrdineDTO> getAllNotClosed() {
+		return OrdineDTO.createOrdineDTOListFromModelList(ordineService.listAllElementsWithNotClosed(), true, true, true);
+	}
+	
+	@PostMapping(value = "/ricaviIntervallo")
+	public Integer getCostoOrdine(@Valid @RequestBody LocalDate inizio,LocalDate fine) {
+		return ordineService.calcolaRicaviOrdiniIntervalloDate(inizio, fine);
+	}
+	
+	@PostMapping(value = "/numeroPizzeOrdinate")
+	public Integer getNumeroPizzeOrdinate(@Valid @RequestBody LocalDate inizio,LocalDate fine) {
+		return ordineService.calcolaNumeroPizzeOrdinate(inizio, fine);
+	}
+	
+	@PostMapping(value = "/numeroOrdiniIntervallo")
+	public Integer getNumeroOrdiniIntervallo(@Valid @RequestBody LocalDate inizio,LocalDate fine) {
+		return ordineService.calcolaNumeroOrdiniIntervallo(inizio, fine);
+	}
+	
+	@PostMapping(value = "/OrdiniClienteIntervalloPizza")
+	public List<OrdineDTO> getOrdiniClienteIntervalloPizza(@Valid @RequestBody Long clienteId,Long pizzaId,LocalDate inizio,LocalDate fine) {
+		return OrdineDTO.createOrdineDTOListFromModelList(ordineService.cercaOrdiniTraDateDiClienteConPizze(clienteId, pizzaId, inizio, fine),true,true,true);
+	}
 
+	@PostMapping(value = "/OrdiniApertiFattorino")
+	public List<OrdineDTO> getOrdiniApertiFattorino(@Valid @RequestBody String username) {
+		return OrdineDTO.createOrdineDTOListFromModelList(ordineService.findAllOrdineByClosedAndFattorinoLog(username),true,true,true);
+	}
 }

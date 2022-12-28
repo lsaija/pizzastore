@@ -59,4 +59,9 @@ public class ClienteServiceImpl implements ClienteService {
 		return clienteRepository.findByExample(example);
 	}
 
+	@Override
+	public List<Cliente> listAllClientiVirtuosi() {
+		return clienteRepository.findAllClientiVirtuosi();
+	}
+
 }

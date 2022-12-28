@@ -121,19 +121,27 @@ public class PizzastoreApplication implements CommandLineRunner {
 		 *           */
 		
 		Cliente clienteAttivo = new Cliente("Peppe", "Pepinho", "via bella 5", true);
-		Cliente clienteNonAttivo = new Cliente("Magalli", "Brosio", "via brutta 6", false);
-		clienteServiceInstance.inserisciNuovo(clienteNonAttivo);
+		Cliente clienteAttivissimo = new Cliente("Magalli", "Brosio", "via brutta 6", true);
+		Cliente clienteNonAttivo = new Cliente("Son", "goku", "via giappone 77", false);
+		clienteServiceInstance.inserisciNuovo(clienteAttivissimo);
 		clienteServiceInstance.inserisciNuovo(clienteAttivo);
+		clienteServiceInstance.inserisciNuovo(clienteNonAttivo);
 		
 		/*
 		 *   ORDINI
 		 *            */
 		
-		Ordine ordine = new Ordine("A74673", LocalDate.now(), 13, false, clienteAttivo);
+		Ordine ordine = new Ordine("A74673", LocalDate.now(), 128, false, clienteAttivo);
 		ordine.getListaPizze().add(margherita);
 		ordine.getListaPizze().add(pistacchiosa);
 		ordine.setFattorino(utenteServiceInstance.findByUsername("Fattorino"));
 		ordineServiceInstance.inserisciNuovo(ordine);
+		
+		Ordine ordine2 = new Ordine("B7362", LocalDate.now(), 13, false, clienteAttivissimo);
+		ordine2.getListaPizze().add(margherita);
+		ordine2.getListaPizze().add(pistacchiosa);
+		ordine2.setFattorino(utenteServiceInstance.findByUsername("Fattorino"));
+		ordineServiceInstance.inserisciNuovo(ordine2);
 	}
 		
 	

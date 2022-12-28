@@ -1,5 +1,6 @@
 package it.prova.pizzastore.service.ordine;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,5 +64,46 @@ public class OrdineServiceImpl implements OrdineService{
 	public List<Ordine> findByExample(Ordine example) {
 		return ordineRepository.findByExample(example);
 	}
+
+	@Override
+	public Integer calcolaPrezzoOrdineTotale(Long id) {
+		return ordineRepository.calcolaPrezzoOrdine(id);
+	}
+
+	@Override
+	public List<Ordine> listAllElementsWithNotClosed() {
+		return ordineRepository.findAllOrdineByClosed();
+	}
+
+	@Override
+	public Integer calcolaRicaviOrdiniIntervalloDate(LocalDate inizio, LocalDate fine) {
+		return ordineRepository.calcolaRicaviOrdiniIntervallo(inizio, fine);
+	}
+
+	@Override
+	public Integer calcolaNumeroPizzeOrdinate(LocalDate inizio, LocalDate fine) {
+		return ordineRepository.calcolaNumeroPizze(inizio, fine);
+	}
+
+	@Override
+	public Integer calcolaNumeroOrdiniIntervallo(LocalDate inizio, LocalDate fine) {
+		return ordineRepository.calcolaNumeroOrdini(inizio, fine);
+	}
+
+	@Override
+	public List<Ordine> cercaOrdiniTraDateDiClienteConPizze(Long clienteId, Long pizzaId, LocalDate inizio,
+			LocalDate fine) {
+		return ordineRepository.findOrdineTraDateDiClienteConPizza(clienteId, pizzaId, inizio, fine);
+	}
+
+	@Override
+	public List<Ordine> findAllOrdineByClosedAndFattorinoLog(String usernameLogged) {
+		return ordineRepository.findAllOrdineByClosedAndFattorino(usernameLogged);
+	}
+
+
+		
+		
+	
 
 }

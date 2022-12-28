@@ -18,5 +18,8 @@ public interface ClienteRepository extends CrudRepository<Cliente, Long>, Custom
 
 	@Query("from Cliente r left join fetch r.ordini where r.id=?1")
 	Cliente findByIdEager(Long idCliente);
+	
+	@Query("select distinct r from Cliente r left join fetch r.ordini o where o.costoTotale>100 ")
+	List<Cliente> findAllClientiVirtuosi();
 
 }

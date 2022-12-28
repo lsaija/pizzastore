@@ -19,5 +19,7 @@ public interface ClienteService {
 	public void rimuovi(Long idToRemove);
 
 	public List<Cliente> findByExample(Cliente example);
+	
+	public List<Cliente> listAllClientiVirtuosi();
 
 }

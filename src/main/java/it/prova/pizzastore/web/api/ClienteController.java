@@ -75,5 +75,11 @@ public class ClienteController {
 		return ClienteDTO.createClienteDTOListFromModelList(clienteService.findByExample(example.buildClienteModel()),
 				true);
 	}
+	
+	@GetMapping("/searchVirtuosi")
+	public List<ClienteDTO> searchVirtuosi() {
+		return ClienteDTO.createClienteDTOListFromModelList(clienteService.listAllClientiVirtuosi(),
+				true);
+	}
 
 }
