@@ -38,10 +38,10 @@ public class CustomPizzaRepositoryImpl implements CustomPizzaRepository{
 			whereClauses.add(" p.prezzo >= :prezzo ");
 			paramaterMap.put("prezzo",  example.getPrezzo());
 		}
-		/*if (example.isAttivo()==true) {
+		if (example.isAttivo()==true) {
 			whereClauses.add(" p.attivo =:attivo ");
 			paramaterMap.put("attivo", example.isAttivo());
-		}*/
+		}
 		
 		queryBuilder.append(!whereClauses.isEmpty()?" and ":"");
 		queryBuilder.append(StringUtils.join(whereClauses, " and "));
