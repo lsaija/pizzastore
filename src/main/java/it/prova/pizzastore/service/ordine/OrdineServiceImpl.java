@@ -61,8 +61,7 @@ public class OrdineServiceImpl implements OrdineService{
 
 	@Override
 	public List<Ordine> findByExample(Ordine example) {
-		// TODO Auto-generated method stub
-		return null;
+		return ordineRepository.findByExample(example);
 	}
 
 }

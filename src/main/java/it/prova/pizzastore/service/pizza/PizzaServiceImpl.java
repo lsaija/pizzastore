@@ -48,8 +48,7 @@ public class PizzaServiceImpl implements PizzaService{
 
 	@Override
 	public List<Pizza> findByExample(Pizza example) {
-		// TODO Auto-generated method stub
-		return null;
+		return pizzaRepository.findByExample(example);
 	}
 
 

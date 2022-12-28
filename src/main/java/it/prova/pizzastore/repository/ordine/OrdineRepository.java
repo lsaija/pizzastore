@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import it.prova.pizzastore.model.Ordine;
 
-public interface OrdineRepository extends CrudRepository<Ordine, Long> {
+public interface OrdineRepository extends CrudRepository<Ordine, Long>,CustomOrdineRepository {
 
 	@Query("from Ordine o left join fetch o.listaPizze left join fetch o.cliente left join fetch o.fattorino where o.id = ?1")
 	Optional<Ordine> findByIdEager(Long id);
