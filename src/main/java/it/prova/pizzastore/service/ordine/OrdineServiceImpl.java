@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.prova.pizzastore.model.Ordine;
+import it.prova.pizzastore.model.Utente;
 import it.prova.pizzastore.repository.ordine.OrdineRepository;
+import it.prova.pizzastore.repository.utente.UtenteRepository;
+import it.prova.pizzastore.web.api.exception.UtenteNotFoundException;
 
 @Service
 @Transactional
@@ -16,6 +19,9 @@ public class OrdineServiceImpl implements OrdineService{
 
 	@Autowired
 	private OrdineRepository ordineRepository;
+	
+	@Autowired
+	private UtenteRepository utenteRepository;
 	
 	@Override
 	public List<Ordine> listAllOrdini() {
@@ -97,8 +103,11 @@ public class OrdineServiceImpl implements OrdineService{
 	}
 
 	@Override
-	public List<Ordine> findAllOrdineByClosedAndFattorinoLog(String usernameLogged) {
-		return ordineRepository.findAllOrdineByClosedAndFattorino(usernameLogged);
+	public List<Ordine> findAllOrdineByClosedAndFattorinoLog(String usernameFattorino) {
+		Utente fattorino = utenteRepository.findByUsername(usernameFattorino).orElse(null);
+		if (fattorino == null)
+			throw new UtenteNotFoundException("Utente Not Found con username: " + usernameFattorino);
+		return ordineRepository.findAllOrdineByClosedAndFattorino(usernameFattorino);
 	}
 
 

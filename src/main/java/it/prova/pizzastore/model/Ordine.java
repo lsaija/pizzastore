@@ -29,7 +29,7 @@ public class Ordine {
 	private LocalDate data;
 
 	@Column(name = "closed")
-	private boolean closed;
+	private Boolean closed;
 
 	@Column(name = "codice")
 	private String codice;
@@ -70,7 +70,7 @@ public class Ordine {
 		this.listaPizze = listaPizze;
 	}
 
-	public Ordine(LocalDate data, boolean closed, String codice, Integer costoTotale, Cliente cliente) {
+	public Ordine(LocalDate data, Boolean closed, String codice, Integer costoTotale, Cliente cliente) {
 		super();
 		this.data = data;
 		this.closed = closed;
@@ -79,7 +79,7 @@ public class Ordine {
 		this.cliente = cliente;
 	}
 
-	public Ordine(LocalDate data, boolean closed, String codice, Integer costoTotale, Cliente cliente,
+	public Ordine(LocalDate data, Boolean closed, String codice, Integer costoTotale, Cliente cliente,
 			Set<Pizza> listaPizze) {
 		super();
 		this.data = data;
@@ -90,7 +90,7 @@ public class Ordine {
 		this.listaPizze = listaPizze;
 	}
 
-	public Ordine(String codice, LocalDate data, Integer costoTotale, boolean closed, Cliente cliente) {
+	public Ordine(String codice, LocalDate data, Integer costoTotale, Boolean closed, Cliente cliente) {
 		this.codice = codice;
 		this.data = data;
 		this.costoTotale = costoTotale;
@@ -98,7 +98,7 @@ public class Ordine {
 		this.cliente = cliente;
 	}
 
-	public Ordine(Long id, LocalDate data, boolean closed, String codice, Integer costoTotale) {
+	public Ordine(Long id, LocalDate data, Boolean closed, String codice, Integer costoTotale) {
 		super();
 		this.id = id;
 		this.data = data;
@@ -124,13 +124,15 @@ public class Ordine {
 		this.data = data;
 	}
 
-	public boolean isClosed() {
+	
+	public Boolean getClosed() {
 		return closed;
 	}
 
-	public void setClosed(boolean closed) {
+	public void setClosed(Boolean closed) {
 		this.closed = closed;
 	}
+
 
 	public String getCodice() {
 		return codice;

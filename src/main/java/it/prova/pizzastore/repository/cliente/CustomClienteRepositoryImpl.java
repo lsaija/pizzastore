@@ -38,9 +38,9 @@ public class CustomClienteRepositoryImpl implements CustomClienteRepository{
 			whereClauses.add(" c.indirizzo like :indirizzo ");
 			paramaterMap.put("indirizzo", "%" + example.getIndirizzo() + "%");
 		}
-		if (example.isAttivo()==true) {
+		if (example.getAttivo() != null) {
 			whereClauses.add(" c.attivo =:attivo ");
-			paramaterMap.put("attivo", example.isAttivo());
+			paramaterMap.put("attivo", example.getAttivo());
 		}
 		
 		queryBuilder.append(!whereClauses.isEmpty()?" and ":"");

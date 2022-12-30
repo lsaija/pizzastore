@@ -1,5 +1,6 @@
 package it.prova.pizzastore.web.api;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -115,7 +116,7 @@ public class OrdineController {
 	}
 
 	@PostMapping(value = "/OrdiniApertiFattorino")
-	public List<OrdineDTO> getOrdiniApertiFattorino(@Valid @RequestBody String username) {
-		return OrdineDTO.createOrdineDTOListFromModelList(ordineService.findAllOrdineByClosedAndFattorinoLog(username),true,true,true);
+	public List<OrdineDTO> getOrdiniApertiFattorino(Principal principal) {
+		return OrdineDTO.createOrdineDTOListFromModelList(ordineService.findAllOrdineByClosedAndFattorinoLog(principal.getName()),true,true,true);
 	}
 }

@@ -35,6 +35,6 @@ public interface OrdineService {
 	
 	public Integer calcolaNumeroOrdiniIntervallo(LocalDate inizio,LocalDate fine);
 	
-	List<Ordine> findAllOrdineByClosedAndFattorinoLog(String usernameLogged);
+	List<Ordine> findAllOrdineByClosedAndFattorinoLog(String usernameFattorino);
 
 }

@@ -26,7 +26,7 @@ public class Pizza {
 	private Integer prezzo;
 
 	@Column(name = "attivo")
-	private boolean attivo;
+	private Boolean attivo;
 
 	public Pizza() {
 	}
@@ -36,7 +36,7 @@ public class Pizza {
 		this.id = id;
 	}
 
-	public Pizza(String descrizione, String ingredienti, Integer prezzo, boolean attivo) {
+	public Pizza(String descrizione, String ingredienti, Integer prezzo, Boolean attivo) {
 		super();
 		this.descrizione = descrizione;
 		this.ingredienti = ingredienti;
@@ -44,7 +44,7 @@ public class Pizza {
 		this.attivo = attivo;
 	}
 
-	public Pizza(Long id, String descrizione, String ingredienti, Integer prezzo, boolean attivo) {
+	public Pizza(Long id, String descrizione, String ingredienti, Integer prezzo, Boolean attivo) {
 		super();
 		this.id = id;
 		this.descrizione = descrizione;
@@ -84,12 +84,12 @@ public class Pizza {
 	public void setPrezzo(Integer prezzo) {
 		this.prezzo = prezzo;
 	}
-
-	public boolean isAttivo() {
+	
+	public Boolean getAttivo() {
 		return attivo;
 	}
 
-	public void setAttivo(boolean attivo) {
+	public void setAttivo(Boolean attivo) {
 		this.attivo = attivo;
 	}
 

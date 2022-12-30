@@ -30,9 +30,9 @@ public class CustomOrdineRepositoryImpl implements CustomOrdineRepository{
 			paramaterMap.put("data", example.getData());
 		}
 		
-		if (example.isClosed()==false) {
+		if (example.getClosed() !=null) {
 			whereClauses.add(" o.closed =:closed ");
-			paramaterMap.put("closed", example.isClosed());
+			paramaterMap.put("closed", example.getClosed());
 		}
 		
 		if (StringUtils.isNotEmpty(example.getCodice())) {
@@ -42,6 +42,20 @@ public class CustomOrdineRepositoryImpl implements CustomOrdineRepository{
 		if (example.getCostoTotale()>0) {
 			whereClauses.add(" o.costoTotale >= :costoTotale ");
 			paramaterMap.put("costoTotale", example.getCostoTotale());
+		}
+		
+	
+		if (example.getCliente() != null && example.getCliente().getId() != null) {
+			whereClauses.add(" o.cliente.id = :idCliente ");
+			paramaterMap.put("idCliente", example.getCliente().getId());
+		}
+		if (example.getFattorino() != null && example.getFattorino().getId() != null) {
+			whereClauses.add(" o.fattorino.id = :idFattorino ");
+			paramaterMap.put("idFattorino", example.getFattorino().getId());
+		}
+		if (example.getListaPizze() != null) {
+			whereClauses.add(" p in :listaPizze ");
+			paramaterMap.put("listaPizze", example.getListaPizze());
 		}
 	
 		
