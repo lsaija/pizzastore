@@ -155,7 +155,7 @@ public class OrdineDTO {
 
 	public static OrdineDTO buildOrdineDTOFromModel(Ordine ordineModel, boolean includePizze, boolean includeCliente,
 			boolean includeFattorino) {
-		OrdineDTO result = new OrdineDTO(ordineModel.getId(), ordineModel.getData(), ordineModel.isClosed(),
+		OrdineDTO result = new OrdineDTO(ordineModel.getId(), ordineModel.getData(), ordineModel.getClosed(),
 				ordineModel.getCodice(), ordineModel.getCostoTotale());
 
 		if (includeCliente)

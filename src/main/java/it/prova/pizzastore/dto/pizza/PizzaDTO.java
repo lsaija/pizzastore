@@ -94,7 +94,7 @@ public class PizzaDTO {
 
 	public static PizzaDTO buildPizzaDTOFromModel(Pizza pizzaModel) {
 		PizzaDTO result = new PizzaDTO(pizzaModel.getId(), pizzaModel.getDescrizione(), pizzaModel.getIngredienti(),
-				pizzaModel.getPrezzo(), pizzaModel.isAttivo());
+				pizzaModel.getPrezzo(), pizzaModel.getAttivo());
 		return result;
 	}
 

@@ -117,7 +117,7 @@ public class ClienteDTO {
 
 	public static ClienteDTO buildClienteDTOFromModel(Cliente clienteModel, boolean includeOrdini) {
 		ClienteDTO result = new ClienteDTO(clienteModel.getId(), clienteModel.getNome(), clienteModel.getCognome(),
-				clienteModel.getIndirizzo(), clienteModel.isAttivo());
+				clienteModel.getIndirizzo(), clienteModel.getAttivo());
 
 		if (includeOrdini)
 			result.setOrdini(OrdineDTO.createOrdineDTOSetFromModelSet(clienteModel.getOrdini(), false,false,false));

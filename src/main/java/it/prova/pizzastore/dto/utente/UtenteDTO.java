@@ -2,11 +2,15 @@ package it.prova.pizzastore.dto.utente;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import it.prova.pizzastore.dto.cliente.ClienteDTO;
+import it.prova.pizzastore.dto.ordine.OrdineDTO;
+import it.prova.pizzastore.model.Cliente;
 import it.prova.pizzastore.model.Ruolo;
 import it.prova.pizzastore.model.StatoUtente;
 import it.prova.pizzastore.model.Utente;
@@ -152,5 +156,11 @@ public class UtenteDTO {
 
 		return result;
 	}
-
+	
+	public static List<UtenteDTO> createUtenteDTOListFromModelList(List<Utente> modelListInput) {
+		return modelListInput.stream().map(utenteEntity -> {
+			UtenteDTO result = UtenteDTO.buildUtenteDTOFromModel(utenteEntity);
+			return result;
+		}).collect(Collectors.toList());
+	}
 }
