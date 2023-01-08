@@ -24,7 +24,7 @@ public interface UtenteRepository extends CrudRepository<Utente, Long> {
 	@EntityGraph(attributePaths = { "ruoli" })
 	Utente findByUsernameAndPasswordAndStato(String username,String password, StatoUtente stato);
 	
-	@Query("from Utente u join fetch u.ruoli r where r.descrizione = 'ROLE_FATTORINO'")
+	@Query("from Utente u join fetch u.ruoli r where r.codice = 'ROLE_FATTORINO'")
 	List<Utente> findAllFattorini();
 	
 	

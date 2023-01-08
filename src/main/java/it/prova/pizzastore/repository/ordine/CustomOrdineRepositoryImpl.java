@@ -23,7 +23,7 @@ public class CustomOrdineRepositoryImpl implements CustomOrdineRepository{
 		Map<String, Object> paramaterMap = new HashMap<String, Object>();
 		List<String> whereClauses = new ArrayList<String>();
 
-		StringBuilder queryBuilder = new StringBuilder("select o from Ordine o where o.id = o.id ");
+		StringBuilder queryBuilder = new StringBuilder("select distinct o from Ordine o left join o.listaPizze p where o.id = o.id ");
 
 		if (example.getData() != null) {
 			whereClauses.add("o.data >= :data ");
@@ -39,7 +39,7 @@ public class CustomOrdineRepositoryImpl implements CustomOrdineRepository{
 			whereClauses.add(" o.codice like :codice ");
 			paramaterMap.put("codice", "%" + example.getCodice() + "%");
 		}
-		if (example.getCostoTotale()>0) {
+		if (example.getCostoTotale()!=null) {
 			whereClauses.add(" o.costoTotale >= :costoTotale ");
 			paramaterMap.put("costoTotale", example.getCostoTotale());
 		}
@@ -53,7 +53,7 @@ public class CustomOrdineRepositoryImpl implements CustomOrdineRepository{
 			whereClauses.add(" o.fattorino.id = :idFattorino ");
 			paramaterMap.put("idFattorino", example.getFattorino().getId());
 		}
-		if (example.getListaPizze() != null) {
+		if (example.getListaPizze() != null  && !example.getListaPizze().isEmpty()) {
 			whereClauses.add(" p in :listaPizze ");
 			paramaterMap.put("listaPizze", example.getListaPizze());
 		}

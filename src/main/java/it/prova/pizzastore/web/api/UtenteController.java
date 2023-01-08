@@ -57,6 +57,11 @@ public class UtenteController {
 				utenteLoggato.getUsername(), utenteLoggato.getEmail(), ruoli));
 	}
 	
+	@GetMapping("/fattorini")
+	public List<UtenteDTO> findAllFattorini() {
+		return UtenteDTO.createUtenteDTOListFromModelList(utenteService.getFattorini());
+	}
+	
 	
 /*	@GetMapping
 	public List<UtenteDTO> getAll() {

@@ -8,13 +8,13 @@ import java.util.stream.Collectors;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import it.prova.pizzastore.dto.cliente.ClienteDTO;
-import it.prova.pizzastore.dto.ordine.OrdineDTO;
-import it.prova.pizzastore.model.Cliente;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import it.prova.pizzastore.model.Ruolo;
 import it.prova.pizzastore.model.StatoUtente;
 import it.prova.pizzastore.model.Utente;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UtenteDTO {
 
 	private Long id;

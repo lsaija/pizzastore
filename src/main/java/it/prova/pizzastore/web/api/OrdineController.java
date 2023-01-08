@@ -1,7 +1,6 @@
 package it.prova.pizzastore.web.api;
 
 import java.security.Principal;
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.prova.pizzastore.dto.ordine.OrdineDTO;
+import it.prova.pizzastore.dto.statistiche.StatisticheDTO;
 import it.prova.pizzastore.model.Ordine;
 import it.prova.pizzastore.service.ordine.OrdineService;
 import it.prova.pizzastore.web.api.exception.IdNotNullForInsertException;
@@ -50,6 +50,9 @@ public class OrdineController {
 			throw new IdNotNullForInsertException("Non è ammesso fornire un id per la creazione");
 
 		ordineService.inserisciNuovo(ordineInput.buildOrdineModel());
+		
+		
+		
 	}
 
 	@GetMapping("/{id}")
@@ -87,7 +90,7 @@ public class OrdineController {
 	
 	@GetMapping(value = "/costoOrdine/{id}")
 	public Integer getCostoOrdine(@PathVariable(value = "id", required = true) long id) {
-		return ordineService.calcolaPrezzoOrdineTotale(id);
+		return ordineService.calcolaPrezzoOrdineTotale(ordineService.caricaSingoloOrdineEager(id).getCodice());
 	}
 	
 	@GetMapping(value = "/ordiniNotClosed")
@@ -96,26 +99,26 @@ public class OrdineController {
 	}
 	
 	@PostMapping(value = "/ricaviIntervallo")
-	public Integer getCostoOrdine(@Valid @RequestBody LocalDate inizio,LocalDate fine) {
-		return ordineService.calcolaRicaviOrdiniIntervalloDate(inizio, fine);
+	public Integer getCostoOrdine(@Valid @RequestBody StatisticheDTO example ) {
+		return ordineService.calcolaRicaviOrdiniIntervalloDate(example.getDataInizio(),example.getDataFine());
 	}
 	
 	@PostMapping(value = "/numeroPizzeOrdinate")
-	public Integer getNumeroPizzeOrdinate(@Valid @RequestBody LocalDate inizio,LocalDate fine) {
-		return ordineService.calcolaNumeroPizzeOrdinate(inizio, fine);
+	public Integer getNumeroPizzeOrdinate(@Valid @RequestBody StatisticheDTO example) {
+		return ordineService.calcolaNumeroPizzeOrdinate( example.getDataInizio(),example.getDataFine());
 	}
 	
 	@PostMapping(value = "/numeroOrdiniIntervallo")
-	public Integer getNumeroOrdiniIntervallo(@Valid @RequestBody LocalDate inizio,LocalDate fine) {
-		return ordineService.calcolaNumeroOrdiniIntervallo(inizio, fine);
+	public Integer getNumeroOrdiniIntervallo(@Valid @RequestBody StatisticheDTO example) {
+		return ordineService.calcolaNumeroOrdiniIntervallo(example.getDataInizio(),example.getDataFine());
 	}
 	
 	@PostMapping(value = "/OrdiniClienteIntervalloPizza")
-	public List<OrdineDTO> getOrdiniClienteIntervalloPizza(@Valid @RequestBody Long clienteId,Long pizzaId,LocalDate inizio,LocalDate fine) {
-		return OrdineDTO.createOrdineDTOListFromModelList(ordineService.cercaOrdiniTraDateDiClienteConPizze(clienteId, pizzaId, inizio, fine),true,true,true);
+	public List<OrdineDTO> getOrdiniClienteIntervalloPizza(@Valid @RequestBody Long clienteId,Long pizzaId,StatisticheDTO example) {
+		return OrdineDTO.createOrdineDTOListFromModelList(ordineService.cercaOrdiniTraDateDiClienteConPizze(clienteId, pizzaId, example),true,true,true);
 	}
 
-	@PostMapping(value = "/OrdiniApertiFattorino")
+	@GetMapping(value = "/fattorino")
 	public List<OrdineDTO> getOrdiniApertiFattorino(Principal principal) {
 		return OrdineDTO.createOrdineDTOListFromModelList(ordineService.findAllOrdineByClosedAndFattorinoLog(principal.getName()),true,true,true);
 	}

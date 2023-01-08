@@ -9,18 +9,22 @@ import java.util.stream.Collectors;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import it.prova.pizzastore.dto.cliente.ClienteDTO;
 import it.prova.pizzastore.dto.pizza.PizzaDTO;
 import it.prova.pizzastore.dto.utente.UtenteDTO;
 import it.prova.pizzastore.model.Ordine;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrdineDTO {
 
 	private Long id;
 
 	@NotNull(message = "{data.notnull}")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate data;
 
 	@NotNull(message = "{closed.notnull}")
@@ -37,14 +41,13 @@ public class OrdineDTO {
 
 	private UtenteDTO fattorino;
 
-	@JsonIgnoreProperties(value = { "ordine" })
-	private Set<PizzaDTO> pizze = new HashSet<PizzaDTO>(0);
+	private List<PizzaDTO> pizze;
 
 	public OrdineDTO() {
 	}
 
 	public OrdineDTO(Long id, LocalDate data, boolean closed, String codice, Integer costoTotale, ClienteDTO cliente,
-			UtenteDTO fattorino, Set<PizzaDTO> pizze) {
+			UtenteDTO fattorino,List<PizzaDTO> pizze) {
 		super();
 		this.id = id;
 		this.data = data;
@@ -130,11 +133,11 @@ public class OrdineDTO {
 		this.fattorino = fattorino;
 	}
 
-	public Set<PizzaDTO> getPizze() {
+	public List<PizzaDTO> getPizze() {
 		return pizze;
 	}
 
-	public void setPizze(Set<PizzaDTO> pizze) {
+	public void setPizze(List<PizzaDTO> pizze) {
 		this.pizze = pizze;
 	}
 
@@ -148,7 +151,7 @@ public class OrdineDTO {
 			result.setFattorino(this.fattorino.buildUtenteModel(true));
 		
 		if (this.pizze != null)
-			result.setListaPizze(PizzaDTO.createPizzaModelSetFromDTOSet(this.pizze));
+			result.setListaPizze(PizzaDTO.createPizzaModelSetFromDTOList(this.pizze));
 
 		return result;
 	}
@@ -165,7 +168,7 @@ public class OrdineDTO {
 			result.setFattorino(UtenteDTO.buildUtenteDTOFromModel(ordineModel.getFattorino()));
 
 		if (includePizze)
-			result.setPizze(PizzaDTO.createPizzaDTOSetFromModelSet(ordineModel.getListaPizze()));
+			result.setPizze(PizzaDTO.createPizzaDTOListFromModelSet(ordineModel.getListaPizze()));
 
 		return result;
 	}
@@ -176,7 +179,7 @@ public class OrdineDTO {
 			OrdineDTO result = OrdineDTO.buildOrdineDTOFromModel(ordineEntity, includePizze, includeCliente,
 					includeFattorino);
 			if (includePizze)
-				result.setPizze(PizzaDTO.createPizzaDTOSetFromModelSet(ordineEntity.getListaPizze()));
+				result.setPizze(PizzaDTO.createPizzaDTOListFromModelSet(ordineEntity.getListaPizze()));
 			return result;
 		}).collect(Collectors.toList());
 	}

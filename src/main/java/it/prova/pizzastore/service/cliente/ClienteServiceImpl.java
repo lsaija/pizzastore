@@ -1,5 +1,6 @@
 package it.prova.pizzastore.service.cliente;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,12 +57,13 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Override
 	public List<Cliente> findByExample(Cliente example) {
+		example.setAttivo(null);
 		return clienteRepository.findByExample(example);
 	}
 
 	@Override
-	public List<Cliente> listAllClientiVirtuosi() {
-		return clienteRepository.findAllClientiVirtuosi();
+	public List<Cliente> listAllClientiVirtuosi(LocalDate dataInizio, LocalDate dataFine) {
+		return clienteRepository.findAllClientiVirtuosi(dataInizio,dataFine);
 	}
 
 }

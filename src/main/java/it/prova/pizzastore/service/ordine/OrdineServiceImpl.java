@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.prova.pizzastore.dto.statistiche.StatisticheDTO;
 import it.prova.pizzastore.model.Ordine;
 import it.prova.pizzastore.model.Utente;
 import it.prova.pizzastore.repository.ordine.OrdineRepository;
@@ -53,7 +54,9 @@ public class OrdineServiceImpl implements OrdineService{
 	@Override
 	public void inserisciNuovo(Ordine ordineInstance) {
 		ordineInstance.setClosed(false);
-		ordineRepository.save(ordineInstance);		
+		ordineRepository.save(ordineInstance);
+		ordineInstance.setCostoTotale(calcolaPrezzoOrdineTotale(ordineInstance.getCodice()));
+		ordineRepository.save(ordineInstance);
 	}
 
 	@Override
@@ -72,8 +75,8 @@ public class OrdineServiceImpl implements OrdineService{
 	}
 
 	@Override
-	public Integer calcolaPrezzoOrdineTotale(Long id) {
-		return ordineRepository.calcolaPrezzoOrdine(id);
+	public Integer calcolaPrezzoOrdineTotale(String codice) {
+		return ordineRepository.calcolaPrezzoOrdine(codice);
 	}
 
 	@Override
@@ -82,24 +85,23 @@ public class OrdineServiceImpl implements OrdineService{
 	}
 
 	@Override
-	public Integer calcolaRicaviOrdiniIntervalloDate(LocalDate inizio, LocalDate fine) {
-		return ordineRepository.calcolaRicaviOrdiniIntervallo(inizio, fine);
+	public Integer calcolaRicaviOrdiniIntervalloDate(LocalDate dataInizio, LocalDate dataFine) {
+		return ordineRepository.calcolaRicaviOrdiniIntervallo(dataInizio, dataFine);
 	}
 
 	@Override
-	public Integer calcolaNumeroPizzeOrdinate(LocalDate inizio, LocalDate fine) {
-		return ordineRepository.calcolaNumeroPizze(inizio, fine);
+	public Integer calcolaNumeroPizzeOrdinate(LocalDate dataInizio, LocalDate dataFine) {
+		return ordineRepository.calcolaNumeroPizze(dataInizio,dataFine);
 	}
 
 	@Override
-	public Integer calcolaNumeroOrdiniIntervallo(LocalDate inizio, LocalDate fine) {
-		return ordineRepository.calcolaNumeroOrdini(inizio, fine);
+	public Integer calcolaNumeroOrdiniIntervallo(LocalDate dataInizio, LocalDate dataFine) {
+		return ordineRepository.countByDataBetween(dataInizio,dataFine);
 	}
 
 	@Override
-	public List<Ordine> cercaOrdiniTraDateDiClienteConPizze(Long clienteId, Long pizzaId, LocalDate inizio,
-			LocalDate fine) {
-		return ordineRepository.findOrdineTraDateDiClienteConPizza(clienteId, pizzaId, inizio, fine);
+	public List<Ordine> cercaOrdiniTraDateDiClienteConPizze(Long clienteId, Long pizzaId, StatisticheDTO example) {
+		return ordineRepository.findOrdineTraDateDiClienteConPizza(clienteId, pizzaId, example.getDataInizio(),example.getDataFine());
 	}
 
 	@Override
@@ -107,7 +109,12 @@ public class OrdineServiceImpl implements OrdineService{
 		Utente fattorino = utenteRepository.findByUsername(usernameFattorino).orElse(null);
 		if (fattorino == null)
 			throw new UtenteNotFoundException("Utente Not Found con username: " + usernameFattorino);
-		return ordineRepository.findAllOrdineByClosedAndFattorino(usernameFattorino);
+		return ordineRepository.findAllOrdineByClosedAndFattorino(fattorino.getId());
+	}
+
+	@Override
+	public Ordine caricaOrdineEagerCodice(String codice) {
+		return ordineRepository.findByCodiceEager(codice).orElse(null);
 	}
 
 

@@ -48,6 +48,7 @@ public class PizzaServiceImpl implements PizzaService{
 
 	@Override
 	public List<Pizza> findByExample(Pizza example) {
+		example.setAttivo(null);
 		return pizzaRepository.findByExample(example);
 	}
 

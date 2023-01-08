@@ -103,6 +103,16 @@ public class PizzastoreApplication implements CommandLineRunner {
 			utenteServiceInstance.changeUserAbilitation(fattorino.getId());
 		}
 		
+		if (utenteServiceInstance.findByUsername("Fattorino2") == null) {
+			Utente fattorino2 = new Utente("Fattorino2", "Fattorino2", "pollo", "cotto", new Date());
+			fattorino2.setEmail("f.fattorino2@prova.it");
+			fattorino2.getRuoli()
+					.add(ruoloServiceInstance.cercaPerDescrizioneECodice("Fattorino", Ruolo.ROLE_FATTORINO));
+			utenteServiceInstance.inserisciNuovo(fattorino2);
+			// l'inserimento avviene come created ma io voglio attivarlo
+			utenteServiceInstance.changeUserAbilitation(fattorino2.getId());
+		}
+		
 		/*
 		 *  PIZZE
 		 *          */

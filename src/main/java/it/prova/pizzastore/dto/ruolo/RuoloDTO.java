@@ -4,8 +4,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import it.prova.pizzastore.model.Ruolo;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class RuoloDTO {
 
 	private Long id;

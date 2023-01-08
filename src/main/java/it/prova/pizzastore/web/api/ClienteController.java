@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.prova.pizzastore.dto.cliente.ClienteDTO;
+import it.prova.pizzastore.dto.statistiche.StatisticheDTO;
 import it.prova.pizzastore.model.Cliente;
 import it.prova.pizzastore.service.cliente.ClienteService;
 import it.prova.pizzastore.web.api.exception.ClienteNotFoundException;
@@ -76,9 +77,9 @@ public class ClienteController {
 				true);
 	}
 	
-	@GetMapping("/searchVirtuosi")
-	public List<ClienteDTO> searchVirtuosi() {
-		return ClienteDTO.createClienteDTOListFromModelList(clienteService.listAllClientiVirtuosi(),
+	@PostMapping("/searchVirtuosi")
+	public List<ClienteDTO> searchVirtuosi(@Valid @RequestBody StatisticheDTO example) {
+		return ClienteDTO.createClienteDTOListFromModelList(clienteService.listAllClientiVirtuosi(example.getDataInizio(),example.getDataFine()),
 				true);
 	}
 

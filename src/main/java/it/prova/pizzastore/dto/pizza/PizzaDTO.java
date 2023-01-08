@@ -8,8 +8,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import it.prova.pizzastore.model.Pizza;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PizzaDTO {
 
 	private Long id;
@@ -109,8 +112,19 @@ public class PizzaDTO {
 			return PizzaDTO.buildPizzaDTOFromModel(pizzaEntity);
 		}).collect(Collectors.toSet());
 	}
+	public static List<PizzaDTO> createPizzaDTOListFromModelSet(Set<Pizza> modelListInput) {
+		return modelListInput.stream().map(pizzaEntity -> {
+			return PizzaDTO.buildPizzaDTOFromModel(pizzaEntity);
+		}).collect(Collectors.toList());
+	}
 	
 	public static Set<Pizza> createPizzaModelSetFromDTOSet(Set<PizzaDTO> ListInput) {
+		return ListInput.stream().map(pizzaEntity -> {
+			return pizzaEntity.buildPizzaModel();
+		}).collect(Collectors.toSet());
+	}
+	
+	public static Set<Pizza> createPizzaModelSetFromDTOList(List<PizzaDTO> ListInput) {
 		return ListInput.stream().map(pizzaEntity -> {
 			return pizzaEntity.buildPizzaModel();
 		}).collect(Collectors.toSet());

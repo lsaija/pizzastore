@@ -1,5 +1,6 @@
 package it.prova.pizzastore.repository.cliente;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -19,7 +20,7 @@ public interface ClienteRepository extends CrudRepository<Cliente, Long>, Custom
 	@Query("from Cliente r left join fetch r.ordini where r.id=?1")
 	Cliente findByIdEager(Long idCliente);
 	
-	@Query("select distinct r from Cliente r left join fetch r.ordini o where o.costoTotale>100 ")
-	List<Cliente> findAllClientiVirtuosi();
+	@Query("select distinct c from Ordine o join o.cliente c where c is not null and o.costoTotale > 10 and o.data between ?1 and ?2")
+	List<Cliente> findAllClientiVirtuosi(LocalDate dataInizio, LocalDate dataFine);
 
 }
